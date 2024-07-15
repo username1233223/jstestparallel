@@ -3,7 +3,7 @@ export interface ChunkIndex {
   end: number;
 }
 export interface WorkerData {
-  buffer: SharedArrayBuffer | number[];
+  buffer: SharedArrayBuffer | bigint[];
   chunk: ChunkIndex;
   path: string;
 }

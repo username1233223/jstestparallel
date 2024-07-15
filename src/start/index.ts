@@ -1,19 +1,17 @@
-import { generateRandomSharedArray, parallelRun } from './parallel_runner/parallelRun';
+import { generateRandomSharedArray, MAX_SIZE, parallelRun } from './parallel_runner/parallelRun';
 const SUM_SCRIPT_NAME: string = 'workerSum';
 
 async function main(): Promise<void> {
-  const arraySize = 2000000000;
-  const maxWorkers = 10;
+  const arraySize = MAX_SIZE;
+  const maxWorkers = 5;
 
   const randomArray = generateRandomSharedArray(arraySize);
   console.log(`Array size: ${arraySize}`);
-  for (let numWorkers = 1; numWorkers <= maxWorkers; numWorkers++) {
-    const startTime = performance.now();
-    const sum = await parallelRun(randomArray, numWorkers, SUM_SCRIPT_NAME);
-    const endTime = performance.now();
+  const startTime = performance.now();
+  const sum = await parallelRun(randomArray, maxWorkers, SUM_SCRIPT_NAME);
+  const endTime = performance.now();
 
-    console.log(`Workers: ${numWorkers}, Sum: ${sum}, Time: ${endTime - startTime} ms`);
-  }
+  console.log(`Workers: ${maxWorkers}, Sum: ${sum}, Time: ${endTime - startTime} ms`);
 }
 
 main().catch(console.error);

@@ -1,14 +1,14 @@
 import { parentPort, workerData } from 'worker_threads';
 import { WorkerData } from '../types';
 
-function sumArray(workerData: WorkerData): number {
-  let result: number = 0;
+function sumArray(workerData: WorkerData): bigint {
+  let result: bigint = 0n;
   const chunkStart = workerData.chunk.start;
   const chunkEnd = workerData.chunk.end;
   const buffer = workerData.buffer;
-  let data: Int32Array | number[] = [];
+  let data: BigInt64Array | bigint[] = [];
   if (buffer instanceof SharedArrayBuffer) {
-    data = new Int32Array(buffer);
+    data = new BigInt64Array(buffer);
   } else {
     data = buffer;
   }
